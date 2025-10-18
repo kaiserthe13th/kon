@@ -22,8 +22,8 @@ jobs:
       - name: Create project venv
         run: uv venv
 
-      - name: Install pytest as a tool
-        run: uv tool install pytest
+      - name: Sync project with uv
+        run: uv sync
       
       - name: Run tests
         run: uv run pytest -q

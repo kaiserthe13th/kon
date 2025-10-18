@@ -23,7 +23,7 @@ jobs:
         run: uv venv
 
       - name: Sync project with uv
-        run: uv sync
+        run: uv sync --all-packages
       
       - name: Run tests
         run: uv run pytest -q

@@ -31,7 +31,6 @@ def _dump_dict(
     pretty: bool = False,
     indent_width: int = 2,
     _depth: int = 0,
-    _no_indent: bool = False,
     _is_top_level=False,
 ) -> str:
     """Serialize a dictionary to KON format string."""
@@ -94,7 +93,6 @@ def _dump_list(
     object: Iterable[KonObject],
     pretty: bool = False,
     indent_width: int = 2,
-    _no_indent: bool = False,
     _depth: int = 0,
 ) -> str:
     prefix = _depth * indent_width * " " if pretty else ""
@@ -151,7 +149,7 @@ def dumps(
     """
     prefix = _depth * indent_width * " " if pretty and not _no_indent else ""
     if isinstance(object, dict):
-        return prefix + _dump_dict(cast(KonDictionary, object), pretty, indent_width, _depth, _no_indent, _is_top_level)
+        return prefix + _dump_dict(cast(KonDictionary, object), pretty, indent_width, _depth, _is_top_level)
     elif isinstance(object, (int, float, bool)):
         return prefix + str(object).lower()
     elif isinstance(object, str):
@@ -159,7 +157,7 @@ def dumps(
             return prefix + object
         return prefix + repr(object)
     elif isinstance(object, Iterable):
-        return prefix + _dump_list(object, pretty, indent_width, _no_indent, _depth)
+        return prefix + _dump_list(object, pretty, indent_width, _depth)
     elif object is None:
         return prefix + "null"
     else:

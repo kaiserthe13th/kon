@@ -22,13 +22,8 @@ jobs:
       - name: Create project venv
         run: uv venv
 
-      - name: Enter virtual environment (Windows)
-        if: runner.os == 'Windows'
-        run: .\.venv\Scripts\activate.ps1
-
-      - name: Enter virtual environment (Linux)
-        if: runner.os == 'Linux'
-        run: source ./.venv/bin/activate
+      - name: Install pytest as a tool
+        run: uv tool install pytest
       
       - name: Run tests
         run: uv run pytest -q

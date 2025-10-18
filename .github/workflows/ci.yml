@@ -12,21 +12,23 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        python_version: ['3.8', '3.9', '3.11', '3.13']
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: ${{ matrix.python_version }}
 
       - name: Setup uv (official action)
         uses: astral-sh/setup-uv@v1
 
       - name: Create project venv
         run: uv venv
+
+      - name: Enter virtual environment (Windows)
+        if: runner.os == 'Windows'
+        run: .\.venv\Scripts\activate.ps1
+
+      - name: Enter virtual environment (Linux)
+        if: runner.os == 'Linux'
+        run: source ./.venv/bin/activate
       
       - name: Run tests
         run: uv run pytest -q

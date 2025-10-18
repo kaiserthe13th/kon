@@ -2,24 +2,37 @@ import kon
 
 
 def test_integers():
-    assert kon.loads('123') == 123
-    assert kon.loads('-5') == -5
+    assert kon.loads("123") == 123
+    assert kon.loads("-5") == -5
 
 
 def test_floats():
-    assert kon.loads('3.14') == 3.14
-    assert kon.loads('-0.5') == -0.5
-    assert kon.loads('1e3') == 1000.0
+    assert kon.loads("3.14") == 3.14
+    assert kon.loads("-0.5") == -0.5
+    assert kon.loads("1e3") == 1000.0
 
 
 def test_booleans_and_null():
-    assert kon.loads('true') is True
-    assert kon.loads('false') is False
-    assert kon.loads('null') is None
+    assert kon.loads("true") is True
+    assert kon.loads("false") is False
+    assert kon.loads("null") is None
 
 
 def test_dump_primitives():
-    assert kon.dumps(123) == '123'
-    assert kon.dumps(3.14) == '3.14'
-    assert kon.dumps(True) == 'true'
-    assert kon.dumps(None) == 'null'
+    assert kon.dumps(123) == "123"
+    assert kon.dumps(3.14) == "3.14"
+    assert kon.dumps(True) == "true"
+    assert kon.dumps(None) == "null"
+
+
+def test_huge_exponents_neg():
+    assert kon.loads("123.456e-789") == 123.456e-789
+
+
+def test_huge_exponents_pos():
+    assert (
+        kon.loads(
+            "0.4e00669999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999969999999006"
+        )
+        == 0.4e00669999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999969999999006
+    )

@@ -28,5 +28,8 @@ jobs:
       - name: Install pytest tool
         run: uv tool install pytest
       
+      - name: Ensure local install
+        run: uv pip install -e .
+
       - name: Run tests
         run: uv run pytest -q

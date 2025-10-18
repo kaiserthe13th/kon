@@ -433,6 +433,8 @@ class KonParser:
         the source string, identifying and parsing different data types
         (numerics, strings, identifiers, lists, dictionaries).
 
+        It ignores line comments specified by a hash symbol (`#`).
+
         The parsing logic handles different contexts via the `_top_level` flag.
         When at the top level, newlines are treated as simple whitespace.
         Inside structures like lists or dictionaries (`_top_level=False`),
@@ -500,6 +502,10 @@ class KonParser:
                 result = self.parse(_top_level = False)
                 result = self._collapse_parts(parts, result)
                 parts.append(result)
+            elif ch == '#':
+                while self._peek() not in '\n':
+                    self.position += 1
+                self.position += 1
             else:
                 if ch in '\n,)}':
                     if not _top_level:

@@ -11,3 +11,8 @@ wheels/
 
 # Pytest
 .pytest_cache/
+
+# pytest-cov
+.coverage
+htmlcov/
+coverage.{xml,lcov,json}

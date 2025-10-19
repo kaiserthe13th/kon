@@ -163,7 +163,7 @@ def dumps(
         return prefix + "null"
     else:
         raise TypeError(
-            f"Dumped value must be a {KonObject.__value__}, but found value is {object!r}"
+            f"Dumped value must be a {KonObject}, but found value is {object!r}"
         )
 
 

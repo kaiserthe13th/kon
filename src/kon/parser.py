@@ -302,6 +302,8 @@ class KonParser:
         Raises:
             ValueError: If the source is empty, contains unexpected characters,
                 or has an invalid structure (e.g., a key without a value).
+            TypeError: If the source contains a type violation (with the unary
+                operators supported, as that is the only way to get one)
         """
         if _until is None:
             _until = len(self.source)
@@ -311,6 +313,11 @@ class KonParser:
             ch = self._peek()
             if ch == '+':
                 self.position += 1
+                self._skip_whitespace()
+                n = self.parse(_top_level = False)
+                if not isinstance(n, (int, float)):
+                    raise TypeError(f'cannot apply unary plus a(n) {type(n).__name__}, only an int or float')
+                parts.append(n)
             elif ch == '-':
                 self.position += 1
                 self._skip_whitespace()

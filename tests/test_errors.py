@@ -22,3 +22,22 @@ def test_invalid_type_dumped():
 
     with pytest.raises(TypeError):
         kon.dumps(Test()) # type: ignore
+
+
+def test_unterminated_str():
+    with pytest.raises(ValueError):
+        kon.loads('"')
+
+def test_unterminated_esc_seq():
+    with pytest.raises(ValueError):
+        kon.loads('"\\')
+
+def test_invalid_esc_seq():
+    with pytest.raises(ValueError):
+        kon.loads('"\\xG')
+    with pytest.raises(ValueError):
+        kon.loads('"\\xGE"')
+    with pytest.raises(ValueError):
+        kon.loads('"\\uGE"')
+    with pytest.raises(ValueError):
+        kon.loads('"\\uHAUI"')

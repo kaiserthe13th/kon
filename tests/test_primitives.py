@@ -5,7 +5,9 @@ import kon
 def test_integers():
     assert kon.loads("123") == 123
     assert kon.loads("-5") == -5
-
+    assert kon.loads("0x1ca67b") == 0x1ca67b
+    assert kon.loads("0o1337") == 0o1337
+    assert kon.loads("0b1001") == 0b1001
 
 def test_multiple_negation():
     assert kon.loads('---132') == -132

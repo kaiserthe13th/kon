@@ -30,6 +30,9 @@ def _dump_dict(
     _is_top_level=False,
 ) -> str:
     """Serialize a dictionary to KON format string."""
+
+    if len(object) == 0:
+        return '{}'
     
     def _child_top_level(child: KonObject):
         """Check if a child object should be treated as top-level for formatting."""
@@ -93,6 +96,8 @@ def _dump_list(
 ) -> str:
     prefix = _depth * indent_width * " " if pretty else ""
     object = list(object)
+    if len(object) == 0:
+        return '()'
     if pretty and len(object) != 1:
         prefp = "(\n"
         postp = f"\n{prefix})"
@@ -138,7 +143,7 @@ def dumps(
                 level when `pretty` is True. Defaults to 2.
 
         Raises:
-            ValueError: If the object contains a type that cannot be serialized.
+            TypeError: If the object contains a type that cannot be serialized.
 
         Returns:
             str: The serialized string representation of the object.
@@ -157,7 +162,7 @@ def dumps(
     elif object is None:
         return prefix + "null"
     else:
-        raise ValueError(
+        raise TypeError(
             f"Dumped value must be a {KonObject.__value__}, but found value is {object!r}"
         )
 

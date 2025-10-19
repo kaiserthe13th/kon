@@ -1,3 +1,4 @@
+import math
 import pytest
 import kon
 
@@ -24,6 +25,9 @@ def test_floats():
     assert kon.loads("3.14") == 3.14
     assert kon.loads("-0.5") == -0.5
     assert kon.loads("1e3") == 1000.0
+    assert kon.loads("inf") == float('inf')
+    assert math.isinf(kon.loads("inf")) # type: ignore
+    assert math.isnan(kon.loads("nan")) # type: ignore
 
 
 def test_booleans_and_null():

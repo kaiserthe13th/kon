@@ -75,7 +75,7 @@ class KonParser:
 
     def _parse_numeric(self) -> Union[int, float]:
         start = self.position
-        if self._peek() == '0' and self._peek(1) in 'xob':
+        if self._peek() == '0' and self._peek(1) in ('x', 'o', 'b'):
             self.position += 2
             base_char = self.source[self.position-1]
             valid_digits = ''
@@ -86,10 +86,10 @@ class KonParser:
             else: # 'b'
                 valid_digits = '01'
             
-            while self._peek() in valid_digits:
+            while self._peek() in valid_digits and self._peek() != '':
                 self.position += 1
             num_str = self.source[start:self.position]
-            return int(num_str, 0)
+            return int(num_str, base=0)
 
         while self._peek().isdigit():
             self.position += 1

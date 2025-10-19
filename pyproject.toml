@@ -28,3 +28,6 @@ dev = [
 pythonpath = [
     "src"
 ]
+
+[tool.uv.build-backend]
+module-name = "kon"

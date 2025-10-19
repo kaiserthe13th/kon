@@ -9,8 +9,16 @@ def test_simple_string():
 
 
 def test_escaped_chars():
-    s = '"line\\nsecond\\tend"'
-    assert kon.loads(s) == "line\nsecond\tend"
+    s = '"line\\nsecond\\tend\\rsurprise"'
+    assert kon.loads(s) == "line\nsecond\tend\rsurprise"
+    s2 = '"\\x1f\\u10f4"'
+    assert kon.loads(s2) == "\x1f\u10f4"
+    s3 = '"\\\"\\\'\\\\"'
+    assert kon.loads(s3) == "\"\'\\"
+    s4 = '"a\\\nb\\\r\nc"'
+    assert kon.loads(s4) == "abc"
+    s4 = '"\\p"'
+    assert kon.loads(s4) == "p"
 
 
 def test_dedent_multiline_with_marker():

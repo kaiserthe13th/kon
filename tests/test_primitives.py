@@ -1,3 +1,4 @@
+import pytest
 import kon
 
 
@@ -5,6 +6,17 @@ def test_integers():
     assert kon.loads("123") == 123
     assert kon.loads("-5") == -5
 
+
+def test_multiple_negation():
+    assert kon.loads('---132') == -132
+    assert kon.loads('-+-42') == 42
+
+
+def test_negation_error_type():
+    with pytest.raises(TypeError):
+        kon.loads("-'a'")
+    with pytest.raises(TypeError):
+        kon.loads("+()")
 
 def test_floats():
     assert kon.loads("3.14") == 3.14

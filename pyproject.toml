@@ -1,7 +1,7 @@
 [project]
 name = "kon"
 version = "0.1.0"
-description = "Add your description here"
+description = "A small, human-friendly object notation and parser library."
 readme = "README.md"
 authors = [
     { name = "Kerem Göksu", email = "superkerem13@gmail.com" }

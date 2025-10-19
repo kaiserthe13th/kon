@@ -1,5 +1,5 @@
 [project]
-name = "kon"
+name = "konpy"
 version = "0.1.0"
 description = "A small, human-friendly object notation and parser library."
 readme = "README.md"
